@@ -4,22 +4,30 @@ import path from 'path';
 import { Server } from 'http';
 import Express from 'express';
 import React from 'react';
+import mongoose from 'mongoose';
+
 import { renderToString } from 'react-dom/server';
 import { StaticRouter as Router } from 'react-router-dom';
 import { App } from './components/App';
 
+import Track from './models/track';
+
+import tracks from './data/tracks';
+
 const app = new Express();
 const server = new Server(app);
 
-// use ejs templates
+mongoose.connect('mongodb://mongo/whatinmymusiclib', {
+  useMongoClient: true,
+});
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // define the folder that will be used for static assets
 app.use(Express.static(path.join(__dirname, 'static')));
 
-// universal routing and rendering
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   let markup = '';
   let status = 200;
 
@@ -42,6 +50,16 @@ app.get('*', (req, res) => {
   }
 
   return res.status(status).render('index', { markup });
+});
+
+app.get('/api/v1/tracks', (req, res) => {
+  const status = 200;
+
+  res.status(status).json(tracks);
+
+  // Track
+  //   .find({})
+  //   .exec((error, results) => { res.status(status).json(results); });
 });
 
 // start the server
