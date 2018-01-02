@@ -4,17 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test:lint": "eslint src/",
-    "test": "npm run test:lint",
-    "start": "npm run build && node src/server-es5.js",
+    "start": "npm run build && node app/server-es5.js",
     "start:universal": "export UNIVERSAL=true && npm run start",
-    "start:dev": "export NODE_ENV=development && nodemon src/server.js",
+    "start:dev": "export NODE_ENV=development && nodemon app/server.js",
     "start:dev:universal": "export NODE_ENV=development && export UNIVERSAL=true && npm run start:dev",
     "build": "NODE_ENV=production webpack -p --profile --display-modules --optimize-minimize",
     "build:dev": "webpack -d",
-    "build:dev:watch": "webpack -d --watch",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "build:dev:watch": "webpack -d --watch"
   },
   "author": "Maxime Horcholle",
   "license": "MIT",
@@ -34,8 +30,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.1.2",
     "redux": "^3.7.2",
-    "redux-promise": "^0.5.3",
-    "snyk": "^1.41.1"
+    "redux-promise": "^0.5.3"
   },
   "devDependencies": {
     "babel-loader": "^7.1.1",
@@ -49,6 +44,5 @@
     "nodemon": "^1.11.0",
     "webpack": "^3.0.0",
     "webpack-node-externals": "^1.6.0"
-  },
-  "snyk": true
+  }
 }
