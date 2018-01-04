@@ -3,12 +3,12 @@ import { Provider } from 'react-redux';
 
 import { Route, Switch } from 'react-router-dom';
 import { Layout } from './Layout';
-import IndexPage from '../containers/IndexPageContainer';
+import TrackList from '../containers/TrackListContainer';
 import { NotFoundPage } from './NotFoundPage';
 
 import configureStore from '../store/configureStore';
 
-const renderIndex = () => <IndexPage />;
+const renderIndex = () => <TrackList />;
 const store = configureStore();
 export const App = () => (
   <Provider store={store}>

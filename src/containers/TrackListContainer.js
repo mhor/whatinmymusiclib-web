@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchTracks, fetchTracksSuccess, fetchTracksFailure } from '../actions/tracks';
-import IndexPage from '../components/IndexPage';
+import TrackList from '../components/TrackList';
 
 const mapStateToProps = state => ({
   tracksList: state.track.tracksList,
@@ -16,4 +16,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(IndexPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TrackList);

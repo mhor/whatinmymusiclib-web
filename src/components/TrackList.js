@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TrackCard } from './TrackCard';
 
-class IndexPage extends Component {
+class TrackList extends Component {
   componentWillMount() {
     this.props.fetchTracks();
   }
@@ -20,4 +20,4 @@ class IndexPage extends Component {
   }
 }
 
-export default IndexPage;
+export default TrackList;
