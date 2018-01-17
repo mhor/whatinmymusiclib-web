@@ -12,8 +12,6 @@ import { App } from './components/App';
 
 import Track from './models/track';
 
-import tracks from './data/tracks';
-
 const app = new Express();
 const server = new Server(app);
 
@@ -55,11 +53,9 @@ app.get('/', (req, res) => {
 app.get('/api/v1/tracks', (req, res) => {
   const status = 200;
 
-  res.status(status).json(tracks);
-
-  // Track
-  //   .find({})
-  //   .exec((error, results) => { res.status(status).json(results); });
+  Track
+    .find({})
+    .exec((error, results) => { res.status(status).json(results); });
 });
 
 // start the server
