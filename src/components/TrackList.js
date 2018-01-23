@@ -12,7 +12,7 @@ class TrackList extends Component {
       <div className="home">
         <div className="tracks-selector">
           {tracks.map(
-            trackData => <TrackCard key={trackData._id} {...trackData} />,
+            trackData => <TrackCard key={trackData.id} {...trackData} />,
           )}
         </div>
       </div>
