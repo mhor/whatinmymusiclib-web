@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchTracks, fetchTracksSuccess, fetchTracksFailure } from '../actions/tracks';
+import { fetchTracks } from '../actions/tracks';
 import TrackList from '../components/TrackList';
 
 const mapStateToProps = state => ({
@@ -8,11 +8,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchTracks: () => {
-    dispatch(fetchTracks()).then((response) => {
-      !response.error
-        ? dispatch(fetchTracksSuccess(response.payload.data))
-        : dispatch(fetchTracksFailure(response.payload.data));
-    });
+    dispatch(fetchTracks());
   },
 });
 

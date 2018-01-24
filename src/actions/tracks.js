@@ -1,21 +1,13 @@
-
-import axios from 'axios';
-
-export const FETCH_TRACKS = 'REQUEST_TRACKS';
-export const FETCH_TRACKS_SUCCESS = 'REQUEST_TRACKS_SUCCESS';
-export const FETCH_TRACKS_FAILURE = 'REQUEST_TRACKS_FAILURE';
+export const REQUEST_TRACKS_PENDING = 'REQUEST_TRACKS_PENDING';
+export const REQUEST_TRACKS_SUCCESS = 'REQUEST_TRACKS_SUCCESS';
+export const REQUEST_TRACKS_FAIL = 'REQUEST_TRACKS_FAIL';
 
 export const fetchTracks = () => ({
-  type: FETCH_TRACKS,
-  payload: axios.get('http://localhost:3000/api/v1/tracks'),
-});
-
-export const fetchTracksSuccess = tracks => ({
-  type: FETCH_TRACKS_SUCCESS,
-  payload: tracks,
-});
-
-export const fetchTracksFailure = error => ({
-  type: FETCH_TRACKS_FAILURE,
-  payload: error,
+  types: ['REQUEST_TRACKS_PENDING', 'REQUEST_TRACKS_SUCCESS', 'REQUEST_TRACKS_FAIL'],
+  normalize: true,
+  payload: {
+    request: {
+      url: '/v1/tracks',
+    },
+  },
 });

@@ -7,13 +7,15 @@ class TrackList extends Component {
   }
 
   render() {
-    const { tracks, loading, error } = this.props.tracksList;
+    const { result, entities, loading, error } = this.props.tracksList;
     return (
       <div className="home">
         <div className="tracks-selector">
-          {tracks.map(
-            trackData => <TrackCard key={trackData.id} {...trackData} />,
-          )}
+          {
+            result.map(
+              trackId => <TrackCard key={trackId} {...entities[trackId]} />,
+            )
+          }
         </div>
       </div>
     );

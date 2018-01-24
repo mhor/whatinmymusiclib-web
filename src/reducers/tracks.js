@@ -1,8 +1,13 @@
-import { FETCH_TRACKS, FETCH_TRACKS_SUCCESS, FETCH_TRACKS_FAILURE } from '../actions/tracks';
+import {
+  REQUEST_TRACKS_PENDING,
+  REQUEST_TRACKS_SUCCESS,
+  REQUEST_TRACKS_FAIL,
+} from '../actions/tracks';
 
 const INITIAL_STATE = {
   tracksList: {
-    tracks: [],
+    result: [],
+    entities: {},
     error: null,
     loading: false,
   },
@@ -11,14 +16,37 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   let errorValue;
   switch (action.type) {
-    case FETCH_TRACKS: // start fetching posts and set loading = true
-      return { ...state, tracksList: { tracks: [], error: null, loading: true } };
-    case FETCH_TRACKS_SUCCESS: // return list of posts and make loading = false
-      return { ...state, tracksList: { tracks: action.payload, error: null, loading: false } };
-    case FETCH_TRACKS_FAILURE: // return error and make loading = false
-      // 2nd one is network or server down errors
+    case REQUEST_TRACKS_PENDING:
+      return {
+        ...state,
+        tracksList: {
+          result: [],
+          entities: {},
+          error: null,
+          loading: true,
+        },
+      };
+    case REQUEST_TRACKS_SUCCESS:
+      return {
+        ...state,
+        tracksList: {
+          result: action.payload.result,
+          entities: action.payload.entities.tracks,
+          error: null,
+          loading: false,
+        },
+      };
+    case REQUEST_TRACKS_FAIL:
       errorValue = action.payload || { message: action.payload.message };
-      return { ...state, tracksList: { tracks: action.payload, error: errorValue, loading: false } };
+      return {
+        ...state,
+        tracksList: {
+          result: [],
+          entities: {},
+          error: errorValue,
+          loading: false,
+        },
+      };
     default:
       return state;
   }
