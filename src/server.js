@@ -52,10 +52,17 @@ app.get('/', (req, res) => {
 
 app.get('/api/v1/tracks', (req, res) => {
   const status = 200;
+  const page = req.query.page ? parseInt(req.query.page, 10) : 1;
+  const limit = req.query.limit ? parseInt(req.query.limit, 10) : 50;
 
   Track
-    .find({})
-    .exec((error, results) => { res.status(status).json(results); });
+    .paginate(
+      {},
+      { page, limit },
+      (err, result) => {
+        res.status(status).json(result.docs);
+      },
+    );
 });
 
 // start the server

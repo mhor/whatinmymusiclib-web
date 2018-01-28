@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import { TrackCard } from './TrackCard';
 
 class TrackList extends Component {
-  componentWillMount() {
-    this.props.fetchTracks();
-  }
-
   render() {
-    const { result, entities, loading, error } = this.props.tracksList;
+    const { result, nextPage, hasMore, entities, isLoading, isError } = this.props.tracksList;
     return (
       <div className="home">
         <div className="tracks-selector">
-          {
-            result.map(
-              trackId => <TrackCard key={trackId} {...entities[trackId]} />,
-            )
-          }
+          <InfiniteScroll
+            hasMore={!isLoading && hasMore}
+            loadMore={() => this.props.fetchTracks(nextPage, 50)}
+            threshold={450}
+          >
+            {
+              result.map(
+                trackId => <TrackCard key={trackId} {...entities[trackId]} />,
+              )
+            }
+          </InfiniteScroll>
         </div>
       </div>
     );

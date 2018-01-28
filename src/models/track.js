@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate';
 
 const trackSchema = new Schema(
   {
@@ -18,7 +19,9 @@ const trackSchema = new Schema(
       },
     },
   },
-);
+)
+.plugin(mongoosePaginate)
+;
 
 // Export Mongoose model
 module.exports = mongoose.model('Track', trackSchema);
