@@ -54,15 +54,26 @@ app.get('/api/v1/tracks', (req, res) => {
   const status = 200;
   const page = req.query.page ? parseInt(req.query.page, 10) : 1;
   const limit = req.query.limit ? parseInt(req.query.limit, 10) : 50;
+  const search = req.query.search ? req.query.search : null;
 
-  Track
-    .paginate(
-      {},
-      { page, limit },
-      (err, result) => {
-        res.status(status).json(result.docs);
-      },
-    );
+  let query = {};
+  if (search) {
+    query = {
+      $or: [
+        { name: new RegExp(`${search}`, 'i') },
+        { artistName: new RegExp(`${search}`, 'i') },
+        { albumName: new RegExp(`${search}`, 'i') },
+      ],
+    };
+  }
+
+  Track.paginate(
+    query,
+    { page, limit },
+    (err, result) => {
+      res.status(status).json(result.docs);
+    },
+  );
 });
 
 // start the server
