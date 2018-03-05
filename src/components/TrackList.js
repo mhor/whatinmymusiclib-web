@@ -27,24 +27,44 @@ class TrackList extends Component {
       searchTerm,
     } = this.props.tracksList;
     return (
-      <div className="home">
-        <SearchInput
-          className="search-input"
-          onChange={this.searchUpdated}
-        />
-        <div className="tracks-selector">
-          <InfiniteScroll
-            hasMore={!isLoading && hasMore}
-            loadMore={() => this.props.fetchTracks(nextPage, 50, searchTerm, false)}
-            threshold={450}
-          >
-            {
-              result.map(
-                trackId => <TrackCard key={trackId} {...entities[trackId]} />,
-              )
-            }
-          </InfiniteScroll>
+      <div>
+        <div>
+          <section className="hero is-primary">
+            <div className="hero-body">
+              <div className="container">
+                <h1 className="title">
+                    What In My Music Lib
+                </h1>
+                <div>
+                  <SearchInput
+                    className="control"
+                    inputClassName="input"
+                    onChange={this.searchUpdated}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
+        <section className="section">
+          <div className="container">
+            <div className="home">
+              <div className="tracks-selector">
+                <InfiniteScroll
+                  hasMore={!isLoading && hasMore}
+                  loadMore={() => this.props.fetchTracks(nextPage, 50, searchTerm, false)}
+                  threshold={450}
+                >
+                  {
+                    result.map(
+                      trackId => <TrackCard key={trackId} {...entities[trackId]} />,
+                    )
+                  }
+                </InfiniteScroll>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     );
   }
